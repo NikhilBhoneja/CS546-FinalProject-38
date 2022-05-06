@@ -32,8 +32,22 @@ async function getZip(zid) {
     return pharmacyNew;  
   }
 
+  async function getMeds(meds) {
+    if (meds.trim().length === 0) throw 'Medicine name cannot be an empty string or just spaces';
+    if (!meds) throw 'Please provide Medicine name';
+    meds=meds.trim();
+    //if (!ObjectId.isValid(zid)) throw 'invalid object ID';
+    if (typeof meds !== 'string') throw 'Medicine name must be a string';
+    const pharmacyCollection = await pharmacy();
+    const pharmacyNew = await pharmacyCollection.find({"available_medicine": {$regex: meds, $options: 'i'}}).toArray();
+    //const pharmacyNew = await pharmacyCollection.find({"available_medicine": /^meds$/i}).toArray();
+    if (pharmacyNew === null) throw 'Medcine is currently unavailble';
+    return pharmacyNew;  
+  }
+
 module.exports={
     getAll,
     get,
-    getZip
+    getZip,
+    getMeds
   }
