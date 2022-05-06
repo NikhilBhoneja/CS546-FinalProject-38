@@ -1,34 +1,11 @@
-<h1>Dashboard</h1>
-<div class = "article-container">
-    <div class = "article"> 
-        <img src = "" alt="doc img">
-    </div>
-    <div class = "article">
-        <p>Dr. {{First_Name}} {{Last_Name}} </p>
-        <p>{{Speciality}} </p>
-        <p>{{Address[City]}}, {{Address[State]}}</p>
-    </div>
-</div>
-<div><br><br> Book an appointment:<input type="date" name="appointment" value = {{{test_name}}} ></div>
-<div> 
-    <h4>Overall Rating</h4> <br> 
-    <h2>
-        <script type="text/javascript">
-            var arr[] = document.getElementsByName('Ratings');
-            var total = 0;
-            for (let i = 0; i < arr.length; i++){
-                total += arr[i];
-            }
-            var avg = total/arr.length;
-            display.innerHTML=avg;
-        </script> 
-    </h2>  
-</div>
-<div>
-    {{#each context.Reviews}}
-        {{#each this}}
-            {{@key}} - {{this}}
-        {{/each}}
-    {{/each}}
-</div>
-<a href="/logout">Logout</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Doctor stuff</title>
+    <link rel="stylesheet" href="/public/site.css">
+</head>
+<body>
+    {{{body}}}
+</body>
+</html>
