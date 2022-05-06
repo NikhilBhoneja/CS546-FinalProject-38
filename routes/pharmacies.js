@@ -14,6 +14,7 @@ router.get('/', async (req, res) => {
 router.post('/searchPharmacies', async (req, res) => {
     var allPharm = req.body.pharm;
     var nearbyPharm = req.body.nearpharm;
+    var medsPharm = req.body.medspharm;
     if (allPharm){
         try {
             const pharmaciesData  = await pharmacyData.getAll();
@@ -31,6 +32,20 @@ router.post('/searchPharmacies', async (req, res) => {
         const zid = req.body.usersZip;
         try {
             const pharmaciesData  = await pharmacyData.getZip(zid);
+            if (pharmaciesData.length == 0) {
+                res.render('pharmacy/error', { class: 'not-found', message: "We're sorry, but no results were found" });
+             return;
+            }        
+
+            res.render('pharmacy/searchResult', { title: "List of nearby Pharmacies", results:pharmaciesData })
+        } catch (e) {
+            res.status(400).json({ error: e });
+        }
+    }
+    if(medsPharm){
+        const mid = req.body.meds;
+        try {
+            const pharmaciesData  = await pharmacyData.getMeds(mid);
             if (pharmaciesData.length == 0) {
                 res.render('pharmacy/error', { class: 'not-found', message: "We're sorry, but no results were found" });
              return;
