@@ -1,6 +1,7 @@
 {
-    "mongoConfig": {
-      "serverUrl": "mongodb://127.0.0.1:27017/",
-      "database": "Final_Project"
+    "mongoConfig": 
+    {
+      "serverUrl": "mongodb://localhost:27017/",
+      "database": "wp_project"
     }
-  }
+}
