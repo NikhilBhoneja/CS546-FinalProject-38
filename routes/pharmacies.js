@@ -51,7 +51,7 @@ router.post('/searchPharmacies', async (req, res) => {
              return;
             }        
 
-            res.render('pharmacy/searchResult', { title: "List of nearby Pharmacies", results:pharmaciesData })
+            res.render('pharmacy/searchResult', { title: "Medcines are available at:", results:pharmaciesData })
         } catch (e) {
             res.status(400).json({ error: e });
         }
