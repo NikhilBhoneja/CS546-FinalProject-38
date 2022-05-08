@@ -1,5 +1,6 @@
 const doctors = require("./data/doctors");
 const users = require("./data/main");
+const pharmacies = require("./data/pharmacies
 const reviews = require("./data/reviews");
 const connection = require("./config/mongoConnection");
 const mongoCollections = require('./config/mongoCollections');
@@ -162,7 +163,7 @@ const main = async () => {
   }
   
   try{
-    user10 = await users.createUsers("Matthew","Mercer","11/08/1992","87 Imogen Ave", "North Bergen", "NJ", "06193", "mattmercer@stevens.edu","MattMercer","Marisha");
+    user10 = await users.createUsers("Matthew","Mercer","11/08/1992","42", "Wallaby Way", "NY", "06388", "mattmercer@stevens.edu","MattMercer","Marisha");
     console.log("User 10 inserted succesfully");
   } catch (error) {
     console.log(error);
@@ -172,7 +173,7 @@ const main = async () => {
   let doctorCollection = await doctor();
   let posts = await doctorCollection.toArray();
   
-  posts._id = posts._id.toString();
+  //posts._id = posts._id.toString();
   
   try{  
     await reviews.createReview(posts[0]._id.toString(),"Rude guy",1);
@@ -252,6 +253,8 @@ const main = async () => {
     console.log(error);
   }
 
+  let pharmacyCollection = await doctor();
+  let posts = await doctorCollection.toArray();
 };
 
 
