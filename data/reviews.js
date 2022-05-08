@@ -3,6 +3,7 @@ const mongocall = require("mongodb");
 const {ObjectId} = require('mongodb');
 const reviews = mongoCollections.reviews;
 const doctors = mongoCollections.doctors;
+const pharmacy = mongoCollections.pharmacy;
 
 //Function to review and rating
 
@@ -13,6 +14,15 @@ const overall_rating = async function overall_rating(doctor) {
 
     const doctorL = await doctorData.findOne({_id: ObjectId(doctor._id)});
     return doctorL.Rating;
+}
+//Function to review and rating for pharmacy
+const overall_rating_p = async function overall_rating(chemist) {
+    const pharmacyData = await pharmacy();
+    const updatedInfo2 = await pharmacyData.updateOne({
+        _id: ObjectId(chemist._id)}, [{ $set: {Overall_Rating: { $round: [ { $avg: "$Reviews.Rating" }, 1 ] }} }]);
+
+    const pL = await pharmacyData.findOne({_id: ObjectId(chemist._id)});
+    return pL.Rating;
 }
 //function to create review
 
@@ -53,7 +63,34 @@ async function createReview(doctorId, review_text, rating) {
     return doc;
 }
 
+//function to create review for pharmacy 
+async function createReview_p(pharmacyId, Review_text, Rating){
+
+    const pharmacyInfo = await pharmacy();
+    const reviewInfo = {
+    _id:ObjectId(),
+    Review_text: Review_text,
+    Rating: Rating
+    };
+    
+    const insertInfo = await pharmacyInfo.updateOne({_id:ObjectId(pharmacyId)},{$push:{Reviews:reviewInfo}});
+    if (!insertInfo.modifiedCount)throw 'Could not add review';
+
+    pharmacyWithReviews = await pharmacyInfo.findOne({ _id: ObjectId(pharmacyId) });
+    const avg_rating = await this.overall_rating_p(pharmacyWithReviews);
+
+    if(pharmacyWithReviews.Rating !== avg_rating) {
+        let create_s = await pharmacyInfo.updateOne({ _id: ObjectId(pharmacyId) }, { $set: { Rating: avg_rating.toFixed(1) } });
+        if(create_s.modifiedCount === 0) throw 'Could not update rating';
+    }
+    let p = await pharmacyInfo.findOne({ _id: ObjectId(pharmacyId) });
+    if(!p) throw 'pharmacy not found';
+    p._id = p._id.toString();
+    return p;
+}
 module.exports={ 
     createReview,
-    overall_rating 
+    overall_rating,
+    createReview_p,
+    overall_rating_p
 }
