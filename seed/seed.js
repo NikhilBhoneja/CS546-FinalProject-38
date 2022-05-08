@@ -1,6 +1,6 @@
 const doctors = require("./data/doctors");
 const users = require("./data/main");
-const pharmacies = require("./data/pharmacies
+const pharmacies = require("./data/pharmacies");
 const reviews = require("./data/reviews");
 const connection = require("./config/mongoConnection");
 const mongoCollections = require('./config/mongoCollections');
