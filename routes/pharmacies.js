@@ -3,14 +3,23 @@ const router = express.Router();
 const data = require('../data');
 const pharmacyData = data.pharmacies;
 
-router.get('/', async (req, res) => {
-    try {
-        res.status(200).render('pharmacy/home', {title: "Pharmacy Finder"});
-    } catch (e) {
-        res.status(404).json(e);
+
+// router.get('/', async (req, res) => {
+//     try {
+//         res.status(200).render('pharmacy/home', {title: "Pharmacy Finder"});
+//     } catch (e) {
+//         res.status(404).json(e);
+//     }
+// });
+router.get('/', async (req, res)=>{
+    try{
+        res.status(200).render('pharmacy/home', {title: "Dashboard"});
+    }
+    catch(e){
+        console.log(e);
+        res.status(500).send();
     }
 });
-
 router.post('/searchPharmacies', async (req, res) => {
     var allPharm = req.body.pharm;
     var nearbyPharm = req.body.nearpharm;
@@ -94,7 +103,7 @@ router.post('/pageInfo', async (req, res) => {
     
 });
 
-router.get('/placeMedOrder/:id', async (req, res) => {
+router.get('/pharmacy/placeMedOrder/:id', async (req, res) => {
     const id = req.params.id;
     if (!id) {
         res.status(404).render({ class: "error", message: "Invalid ID" });
@@ -110,7 +119,7 @@ router.get('/placeMedOrder/:id', async (req, res) => {
     
 });
 
-router.get('/submitOrder/:id', async (req, res) => {
+router.get('/pharmacy/pharmacy/submitOrder/:id', async (req, res) => {
     const id = req.params.id;
     if (!id) {
         res.status(404).render({ class: "error", message: "Invalid ID" });

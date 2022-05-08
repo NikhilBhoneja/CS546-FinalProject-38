@@ -7,28 +7,28 @@ const doctorsData = require('../data/doctors')
 const users = mongoCollections.users;
 const  xss= require('xss'); // Cross Site Scripting
 
-router.get('/loggedIn',async(req,res)=>{
-        if(!req.session.userId){
-            res.redirect('/login')
-            return;
-        }
-        const allDoctors = await doctorsData.getAll();
-		let id = xss(req.body._id);
-		if(allDoctors){
-			res.render('loggedIn',{username:req.session.user.username, allDoctors:allDoctors,id:id,userId:req.session.userId});
-			return;
-		}else{
-			res.render('loggedIn',{error:'No Feed Available'});
-			return;
-		}
-});
+// router.get('/search',async(req,res)=>{
+//         if(!req.session.userId){
+//             res.redirect('/login')
+//             return;
+//         }
+//         const allDoctors = await doctorsData.getAllDoctor();
+// 		let id = xss(req.body._id);
+// 		if(allDoctors){
+// 			res.render('search',{username:req.session.user.username, allDoctors:allDoctors,id:id,userId:req.session.userId});
+// 			return;
+// 		}else{
+// 			res.render('search',{error:'No Feed Available'});
+// 			return;
+// 		}
+// });
 
 router.get('/',async(req,res)=>{
     if(!req.session.user){
         res.render('landingPage');
         return;
     }else{
-        res.redirect('loggedIn');
+        res.redirect('search');
         return;
     }
 });
@@ -38,7 +38,7 @@ router.get('/signup', async(req,res)=>{
         res.render('signup');
         return;
     }else{
-        res.redirect('loggedIn');
+        res.redirect('search');
         return;
     }
 });
@@ -48,11 +48,10 @@ router.get('/login',async(req,res)=>{
         res.render('login');
         return;
     }else{
-        res.redirect('loggedIn');
+        res.redirect('search');
         return;
     }
 });
-
 router.post('/signup',async(req,res)=>{
     try{
         let fname = xss(req.body.firstName);
@@ -66,7 +65,7 @@ router.post('/signup',async(req,res)=>{
         let u_state = xss(req.body.state);
         let u_zipcode = xss(req.body.zipCode);
         let u_email = xss(req.body.email);
-        rusername=rusername.toLowerCase();
+        uname=uname.toLowerCase();
         if(!fname||!lname||!uname||!pnumber||!pass || !u_dob||!u_street||!u_city||!u_state||!u_zipcode || !u_email){
             res.status(400).render('signup',{error:'All inputs must be provided'});
             return;
@@ -292,14 +291,23 @@ router.post('/login',async(req,res)=>{
         const getLoggedIn = await usersData.checkUser(u_name,p_sswrd);
         if(getLoggedIn){
             let userCollection = await users()
-            req.session.user={username:u_name};
+            req.session.user = {username : u_name};
             const user = await userCollection.findOne({ username: u_name });
             req.session.userId = user._id;
-            res.redirect('/loggedIn');
+            //console.log(user);
+            res.render('search', { userInfo : user });
             return;
-        }
+        // if (getLoggedIn.authenticated == true) {
+		// 	req.session.user = u_name;
+		// 	res.render('search');
+		} else {
+			res.status(400).render('login', {
+				errorhandled: 'Invalid username or password',
+				hasError: true,
+			});
+		}
     }catch(e){
-        res.status(400).render('login',{error:e});
+        res.status(400).render('login',{error : e });
         return;
     }
 });

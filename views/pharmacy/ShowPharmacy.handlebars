@@ -6,9 +6,11 @@
             <dt>Pharmacy Name</dt>
             <dd> {{pharmacy.Name}}</dd>
             <dt>Address</dt>
-            <dd>{{#with pharmacy.Address}}</dd>
+            <dd>{{#with pharmacy.Address}}
             <dd>{{Street}}, {{City}}, {{State}}, {{Zip}}</dd>
+            {{!-- {{this}} --}}
             {{/with}}
+            </dd>
             <dt>Available_Medicine</dt>
             <dd>
                 <ul>
@@ -26,7 +28,7 @@
             </ol>
         </dl>
 
-        <a href="/placeMedOrder/{{pharmacy._id}}">Click here to Place Order</a>
+        <a href="../pharmacy/placeMedOrder/{{pharmacy._id}}">Click here to Place Order</a>
         <br>
         <br>
 

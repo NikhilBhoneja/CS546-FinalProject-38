@@ -10,9 +10,9 @@
 </div>
 
 <div>
-    <form id="formForComment" method="post" action="/doctor/reviews">Review On This Doctor
+    <form id="formForComment" method="post" action="../doctors/doctor/{{userInfo._id}}">Review On This Doctor
     <br>
-    <input type="hidden" name="doctorId" id="doctorid" value="{{a._id}}">
+    <input type="hidden" name="doctorId" id="doctorid" value="{{userInfo._id}}">
     <br>
     <label for="subject">Enter Review
     <br><br>
@@ -33,7 +33,7 @@
         {{/if}}
     </div>
     <script src="/public/js/ReviewclientSide.js"></script>
-    <a href="/loggedIn">Back to Feed</a>
+    <a href="/doctors/search">Back to Feed</a>
 </div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>

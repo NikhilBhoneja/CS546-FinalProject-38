@@ -17,18 +17,37 @@ const getAll = async function getAll() {
     return userList;
 }
 
-const get = async function get(id){
-
-    if(!id) throw "No id is provided";
-    if(typeof id !== "string") throw "The id provided is not a string";
-    
-    let u_Id = await ObjectId(id)
+async function get(id){
+    if (!id) {
+      throw 'An ID is required to search for an Doctor';
+    }
+    if (!id || typeof id != 'string') {
+      throw 'A id of type string must be provided for doctor!';
+    }
+    if (typeof id === 'string') {
+      id = ObjectId(id);
+    } else if (!(id instanceof ObjectId)) {
+      throw 'Invalid type of id:needs to be string';
+    }
     const userCollection = await users();
-    let user = await userCollection.findOne({_id: u_Id});
-    if(user == null) throw "no user exists with this id";
-    user._id = id;
-    return user;
-}
+    let parsedId = ObjectId(id);
+    const user = await userCollection.findOne({_id: parsedId})
+    if (user === null) {throw "No doctor with that id"}
+    return user
+  }
+// const get = async function get(id){
+
+//     if(!id) throw "No id is provided";
+//     if(typeof id !== "string") throw "The id provided is not a string";
+    
+//     let u_Id = await ObjectId(id)
+//     const userCollection = await users();
+//     let user = await userCollection.findOne({_id: u_Id});
+//     console.log(user)
+//     if(user == null) throw "no user exists with this id";
+//     user._id = id;
+//     return user;
+// }
 
 async function checkAppointment(id,doctorId){
 

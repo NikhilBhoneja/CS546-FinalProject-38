@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const reviewData = require('../data/reviews');
+const docData=require('../data/doctors')
 const xss = require('xss');
 
-router.post('/',async(req,res)=>{
+router.post('/:id',async(req,res)=>{
     if(!req.session.user){
         res.status(400).redirect('/login');
         return;
     }
-    let doctorIdRoutes = xss(req.body.doctorId);
+    let doctorIdRoutes = xss(req.params.id);
     let review_textRoutes = xss(req.body.review_text);
     let ratingRoutes = xss(req.body.rating);
     if(!doctorIdRoutes){
@@ -31,14 +32,17 @@ router.post('/',async(req,res)=>{
         res.status(404).render('review',{error:'Rating should be in range from 1 to 5'});
         return;
     }
-    try{
     const postingReview = await reviewData.createReview(doctorIdRoutes,review_textRoutes,ratingRoutes);
+    // const user = await reviewData.get();
+    idd = xss(req.params.id);
+    const doc= await docData.getDoctorById(req.params.id);
+    
     if(postingReview){
-        res.redirect('/review/post/' + doctorIdRoutes);
+        res.render('./userpage/idd');
+        return;
+        // res.redirect('/reviews/post/' + doctorIdRoutes);
     }
-    }catch(e){
-        res.status(400).render('review',{error:e});
-    }
-})
+   
+});
 
 module.exports=router;

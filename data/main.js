@@ -193,7 +193,7 @@ async function checkUser(username,password){
         throw 'No user with this username exists'
     }
     if(userDetails.username===username){
-        let pass = await bcrypt.compare(password,foundUsers.password);
+        let pass = await bcrypt.compare(password,userDetails.password);
         if(pass) {
             return {authenticated: true};
         }else {

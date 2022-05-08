@@ -2,11 +2,11 @@ const mongoCollections = require('../config/mongoCollections');
 const pharmacy = mongoCollections.pharmacy;
 const { ObjectId } = require('mongodb');
 
-async function createPharmacy(Name, Address, Available_Medicine){
+async function createPharmacy(Name, street,city,state,zipCode, Available_Medicine){
     const pharmacyCollection = await pharmacy();
     let newPharmacy = { 
         Name: Name,
-        Address: Address ,
+        Address : {'Street' : street, 'City' : city, 'State' : state, 'Zip' : zipCode},
         Available_Medicine: Available_Medicine,
         Reviews: []
       }
