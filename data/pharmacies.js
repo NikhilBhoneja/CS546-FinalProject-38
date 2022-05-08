@@ -2,6 +2,22 @@ const mongoCollections = require('../config/mongoCollections');
 const pharmacy = mongoCollections.pharmacy;
 const { ObjectId } = require('mongodb');
 
+async function createPharmacy(Name, Address, Available_Medicine){
+    const pharmacyCollection = await pharmacy();
+    let newPharmacy = { 
+        Name: Name,
+        Address: Address ,
+        Available_Medicine: Available_Medicine,
+        Reviews: []
+      }
+    const insertInfo = await pharmacyCollection.insertOne(newPharmacy);
+    if (!insertInfo.acknowledged || !insertInfo.insertedId)
+      throw 'Could not add Pharmacy';
+  
+    newPharmacy._id=newPharmacy._id.toString();
+    return newPharmacy;
+}
+
 async function getAll() {
     const pharmacyCollection = await pharmacy();
     const pharmacies = await pharmacyCollection.find({}).toArray();
@@ -46,6 +62,7 @@ async function getZip(zid) {
   }
 
 module.exports={
+    createPharmacy,
     getAll,
     get,
     getZip,
