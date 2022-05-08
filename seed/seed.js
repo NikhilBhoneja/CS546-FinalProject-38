@@ -138,7 +138,7 @@ const main = async () => {
   }
   
   try{
-    user5 = await users.createUsers("Shanky","Tyagi","01/12/1997","245 Sherman St", "Jercey City", "NJ", "07313", "@stevens.edu","ShankyT","PASS");
+    user5 = await users.createUsers("Shanky","Tyagi","01/12/1997","245 Sherman St", "Jersey City", "NJ", "07313", "@stevens.edu","ShankyT","PASS");
     console.log("User 5 inserted succesfully");
   } catch (error) {
     console.log(error);
@@ -179,6 +179,75 @@ const main = async () => {
     console.log(error);
   }
   
+  try {
+      pharma1 = await pharmacies.createPharmacy("ABC Medicos" , "567 50th St" , "North Bergen" , "NJ", "07307",[    "Advil",    "Acetaminophen",    "Cyclobenzaprine"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma2 = await pharmacies.createPharmacy("PQR Medicos" , "101 5th St" , "North Bergen" , "NJ", "07307", [    "Advil",    "Ibuprofen"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma3 = await pharmacies.createPharmacy("EFG Medicos" , "100 5th St" , "North Bergen" , "NJ", "07370", [    "Adderall",    "Disprin",    "Cyclobenzaprine"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma4 = await pharmacies.createPharmacy("JKL Medicos" , "43 Central Ave" , "Jersey City" , "NJ", "07307", [    "Advil",    "Cyclobenzaprine",    "Disprin"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma5 = await pharmacies.createPharmacy("MNO Medicos" , "12 Washington Ave" , "Hobokem" , "NJ", "07307", [    "Ibuprofen",    "Cyclobenzaprine"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma6 = await pharmacies.createPharmacy("TUV Medicos" , "45 Lawson St" , "Union City" , "NJ", "07307", [    "Advil",    "Viagra"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma7 = await pharmacies.createPharmacy("XYZ Medicos" , "11 Gerrard Way" , "Union City" , "NJ", "07307", [    "Disprin",    "Advil",    "Viagra",     "Ibuprofen",    "Cyclobenzaprine",    "Adderall" ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  } 
+  
+  try {
+      pharma8 = await pharmacies.createPharmacy("AEI Medicos" , "13 Micheal St" , "Jacksonville" , "NY", "07307", [    "Advil",    "Xanax"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma9 = await pharmacies.createPharmacy("FGH Medicos" , "101 5th St" , "North Bergen" , "NJ", "07307", [    "Adderall",    "Viagra",     "Acetaminophen"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
+  
+  try {
+      pharma10 = await pharmacies.createPharmacy("DEF Medicos" , "101 5th St" , "North Bergen" , "NJ", "07307", [    "Advil",    "Disprin",    "Xanax"  ]);
+      console.log("Pharma 1 inserted succesfully");
+    } catch (error) {
+      console.log(error);
+  }
   
   let doctorCollection = await doctor();
   let posts = await doctorCollection.toArray();
