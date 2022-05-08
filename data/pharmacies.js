@@ -27,7 +27,7 @@ async function getZip(zid) {
     //if (!ObjectId.isValid(zid)) throw 'invalid object ID';
     if (typeof zid !== 'string') throw 'zip code must be a string';
     const pharmacyCollection = await pharmacy();
-    const pharmacyNew = await pharmacyCollection.find({"address.zip":zid}).toArray();
+    const pharmacyNew = await pharmacyCollection.find({"Address.Zip":zid}).toArray();
     if (pharmacyNew === null) throw 'No pharmacy found in that zip code';
     return pharmacyNew;  
   }
@@ -39,7 +39,7 @@ async function getZip(zid) {
     //if (!ObjectId.isValid(zid)) throw 'invalid object ID';
     if (typeof meds !== 'string') throw 'Medicine name must be a string';
     const pharmacyCollection = await pharmacy();
-    const pharmacyNew = await pharmacyCollection.find({"available_medicine": {$regex: meds, $options: 'i'}}).toArray();
+    const pharmacyNew = await pharmacyCollection.find({"Available_Medicine": {$regex: meds, $options: 'i'}}).toArray();
     //const pharmacyNew = await pharmacyCollection.find({"available_medicine": /^meds$/i}).toArray();
     if (pharmacyNew === null) throw 'Medcine is currently unavailble';
     return pharmacyNew;  
