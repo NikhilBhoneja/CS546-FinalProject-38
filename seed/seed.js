@@ -5,6 +5,7 @@ const reviews = require("./data/reviews");
 const connection = require("./config/mongoConnection");
 const mongoCollections = require('./config/mongoCollections');
 const doctor = mongoCollections.doctors;
+const pharmaData = mongoCollections.pharmacies;
 const { connectToDb } = require("./config/mongoConnection");
 
 const main = async () => {
@@ -187,72 +188,134 @@ const main = async () => {
   }
   
   try {
-      pharma2 = await pharmacies.createPharmacy("PQR Medicos" , "101 5th St" , "North Bergen" , "NJ", "07307", [    "Advil",    "Ibuprofen"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      pharma2 = await pharmacies.createPharmacy("PQR Medicos" , "62 Comic Way" , "Jersey City" , "NJ", "04630", [    "Advil",    "Ibuprofen"  ]);
+      console.log("Pharma 2 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
   
   try {
-      pharma3 = await pharmacies.createPharmacy("EFG Medicos" , "100 5th St" , "North Bergen" , "NJ", "07370", [    "Adderall",    "Disprin",    "Cyclobenzaprine"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      pharma3 = await pharmacies.createPharmacy("EFG Medicos" , "67 Riverview Street" , "Hoboken" , "NJ", "07390", [    "Adderall",    "Disprin",    "Cyclobenzaprine"  ]);
+      console.log("Pharma 3 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
   
   try {
       pharma4 = await pharmacies.createPharmacy("JKL Medicos" , "43 Central Ave" , "Jersey City" , "NJ", "07307", [    "Advil",    "Cyclobenzaprine",    "Disprin"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      console.log("Pharma 4 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
   
   try {
-      pharma5 = await pharmacies.createPharmacy("MNO Medicos" , "12 Washington Ave" , "Hobokem" , "NJ", "07307", [    "Ibuprofen",    "Cyclobenzaprine"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      pharma5 = await pharmacies.createPharmacy("MNO Medicos" , "12 Washington Ave" , "Hoboken" , "NJ", "07307", [    "Ibuprofen",    "Cyclobenzaprine"  ]);
+      console.log("Pharma 5 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
   
   try {
-      pharma6 = await pharmacies.createPharmacy("TUV Medicos" , "45 Lawson St" , "Union City" , "NJ", "07307", [    "Advil",    "Viagra"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      pharma6 = await pharmacies.createPharmacy("TUV Medicos" , "45 Lawson St" , "Union City" , "NJ", "07193", [    "Advil",    "Viagra"  ]);
+      console.log("Pharma 6 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
   
   try {
       pharma7 = await pharmacies.createPharmacy("XYZ Medicos" , "11 Gerrard Way" , "Union City" , "NJ", "07307", [    "Disprin",    "Advil",    "Viagra",     "Ibuprofen",    "Cyclobenzaprine",    "Adderall" ]);
-      console.log("Pharma 1 inserted succesfully");
+      console.log("Pharma 7 inserted succesfully");
     } catch (error) {
       console.log(error);
   } 
   
   try {
       pharma8 = await pharmacies.createPharmacy("AEI Medicos" , "13 Micheal St" , "Jacksonville" , "NY", "07307", [    "Advil",    "Xanax"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      console.log("Pharma 8 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
   
   try {
-      pharma9 = await pharmacies.createPharmacy("FGH Medicos" , "101 5th St" , "North Bergen" , "NJ", "07307", [    "Adderall",    "Viagra",     "Acetaminophen"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      pharma9 = await pharmacies.createPharmacy("FGH Medicos" , "40 6th St" , "North Bergen" , "NJ", "06193", [    "Adderall",    "Viagra",     "Acetaminophen"  ]);
+      console.log("Pharma 9 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
   
   try {
-      pharma10 = await pharmacies.createPharmacy("DEF Medicos" , "101 5th St" , "North Bergen" , "NJ", "07307", [    "Advil",    "Disprin",    "Xanax"  ]);
-      console.log("Pharma 1 inserted succesfully");
+      pharma10 = await pharmacies.createPharmacy("DEF Medicos" , "10A" , "Wallaby Way" , "NY", "06388", [    "Advil",    "Disprin",    "Xanax"  ]);
+      console.log("Pharma 10 inserted succesfully");
     } catch (error) {
       console.log(error);
   }
+  
+  let pharmacyCollection = await pharmaData();
+  let stuffs = await pharmacyCollection.toArray();
+  
+  try{
+    await reviews.createReview_p(stuffs[0]._id.toString(),"Fast",4);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[1]._id.toString(),"It's ok ",3);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[2]._id.toString(),"I get Adderall and Disprin from here all the time. They even keep a pack aside for me.",4);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[3]._id.toString(),"Lot of variety",5);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[4]._id.toString(),"Delivery Guy was very nice",4);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[5]._id.toString(),"Very sloww",2);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[6]._id.toString(),"They have everythin",5);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[7]._id.toString(),"Good delivery speed",3);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[8]._id.toString(),"ok delivery",2);
+  }catch(error)
+    console.log(error);
+  }
+  
+  try{
+    await reviews.createReview_p(stuffs[9]._id.toString(),"Delayed ordered by 3 days then cancelled",1);
+  }catch(error){
+    console.log(error);
+  }
+  
   
   let doctorCollection = await doctor();
   let posts = await doctorCollection.toArray();
-  
-  //posts._id = posts._id.toString();
   
   try{  
     await reviews.createReview(posts[0]._id.toString(),"Rude guy",1);
@@ -332,8 +395,6 @@ const main = async () => {
     console.log(error);
   }
 
-  let pharmacyCollection = await doctor();
-  let posts = await doctorCollection.toArray();
 };
 
 
