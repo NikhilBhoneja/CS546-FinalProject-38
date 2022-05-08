@@ -168,20 +168,89 @@ const main = async () => {
     console.log(error);
   }
   
+  
+  let doctorCollection = await doctor();
+  let posts = await doctorCollection.toArray();
+  
+  posts._id = posts._id.toString();
+  
+  try{  
+    await reviews.createReview(posts[0]._id.toString(),"Rude guy",1);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[2]._id.toString(),"Seemed very inconclusive",2);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[1]._id.toString(),"Super helpful and happy to explain all my doubts!",4);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[6]._id.toString(),"Best in the industry",5);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[6]._id.toString(),"I'm in love",5);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[6]._id.toString(),"Fixed both my split ends and broken heart",5);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[6]._id.toString(),"-1 because he seems too perfect to be human",4);
+  }catch(error){
+    console.log(error);
+  }
  
+  try{  
+    await reviews.createReview(posts[3]._id.toString(),"Made us wait 25 mins on an ONLINE APPOINTMENT",1);
+  }catch(error){
+    console.log(error);
+  }
 
-
-
-let doctorCollection = await doctor();
-let posts = await doctorCollection.find({}).toArray();
-  //posts = posts.reverse()
-posts._id = posts._id.toString();
-console.log(posts._id);
-try{  
-  await reviews.createReview(posts._id,"Very helpful",2);
-}catch(error){
-  console.log(error);
-}
+  try{  
+    await reviews.createReview(posts[5]._id.toString(),"Good diagnosis but kept talking to the point where it got annoying",3);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[4]._id.toString(),"OK doctor",3);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[7]._id.toString(),"Helpful",4);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[8]._id.toString(),"Passionate",5);
+  }catch(error){
+    console.log(error);
+  }
+  
+  try{  
+    await reviews.createReview(posts[9]._id.toString(),"Talks very loudly",4);
+  }catch(error){
+    console.log(error);
+  }
 
 };
 
