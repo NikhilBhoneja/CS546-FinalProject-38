@@ -17,6 +17,16 @@ const main = async () => {
   let doctor8 = undefined;
   let doctor9 = undefined;
   let doctor10 = undefined;
+  let user1 = undefined;
+  let user2 = undefined;
+  let user3 = undefined;
+  let user4 = undefined;
+  let user5 = undefined;
+  let user6 = undefined;
+  let user7 = undefined;
+  let user8 = undefined;
+  let user9 = undefined;
+  let user10 = undefined;
 try {
     doctor1 = await doctors.create("Krithika", "Gandlaur" , "232 Hancock Ave" , "Jersey City" , "NJ", "07307","3456789087", "Orthopedics","True");
     console.log("doctor 1 details inserted succesfully");
