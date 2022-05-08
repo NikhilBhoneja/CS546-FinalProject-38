@@ -63,10 +63,15 @@
     </h2>  
 </div>
 <div>
-    {{#each context.Reviews}}
+    <ol>
+        {{#each Doctor.Reviews}}
+        <li>{{Reviews}}</li>
+        {{/each}}
+    </ol>
+    {{!-- {{#each context.Reviews}}
         {{#each this}}
             {{@key}} - {{this}}
         {{/each}}
-    {{/each}}
+    {{/each}} --}}
 </div>
 <a href="/logout">Logout</a>
