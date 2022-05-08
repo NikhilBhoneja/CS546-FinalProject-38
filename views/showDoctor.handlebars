@@ -21,6 +21,13 @@
 </div>
 
 <div>
+    <form id="InputAppointment" method="post" action = "/doctor/doctor"> Book an Appointment
+         <input type="datetime-local" id="appointment_details" name="input_details">
+         <input type="submit">
+    </form>
+</div>
+
+<div>
     <form id="formForComment" method="post" action="/doctor/reviews">Review On This Doctor
     <br>
     <input type="hidden" name="doctorId" id="doctorid" value="{{a._id}}">
