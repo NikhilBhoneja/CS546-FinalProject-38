@@ -1,0 +1,56 @@
+<link rel='stylesheet' href='public/css/main_style.css'/>
+    <button id='profileButton' hidden>Profile</button>
+    <div id="profile">
+        <label for="edit">Edit:</label><br>
+        <button id="edit" name="edit">Edit Profile</button>
+        <h1>{{user.username}}</h1>
+        <br>
+        <br>
+        <h2> {{user.firstName}}  {{user.lastName}}</h2>
+        <br>
+        <br>
+        <p><b>Address : </b>{{user.street}}</p>
+        <br>
+        <br>
+        <h2>appointments</h2>
+        <div class='table'>
+        <ul class='doctorDisplay'>
+                {{#each recipes}}
+                    <li class='doctorList'> 
+                    <div class="doctorContent">
+                    <a href="/doctor/post/{{_id}}">{{doctorName}}</a>
+                    <p>Created By <a href='/users/profile/{{posterId}}'>{{posterUsername}}</a></p>
+                    </div>
+                    </li>
+                    {{else}}
+                    <p class="not-found">User does not have any appointments yet.</p>
+                {{/each}}     
+        </ul>
+        </div>
+    </div>
+   
+    <div id='editPage' hidden>
+        <form method="POST" action="{{user._id}}/edit" id="formForEditUser" enctype="multipart/form-data">UPDATE YOUR PROFILE
+        <br><br>
+        <label for="address" >Address</label>
+        <br>
+        <input type="text" id="address" name="address" placeholder="Address" >
+        <br>
+        <br>
+        <label for="phonenumber" >Phone Number</label>
+        <input type="text" id="phonenumber" name="phonenumber" placeholder="Phone Number">
+        <br>
+        <br>
+        <input type="submit" value="Submit"  id="submit5">
+        </form>
+        <div id="errorcheck">
+            {{#if error}}
+            <p>{{error}}</p>
+            {{/if}}
+        </div>
+        <input type="submit" id='cancel' name='cancel' value="Cancel" >
+        <br>
+        <br>
+    </div>
+    <a href="/searchDoctors">Back to Feed</a>
+<script src="/public/js/ClientSideUpdateProfile.js"></script>
