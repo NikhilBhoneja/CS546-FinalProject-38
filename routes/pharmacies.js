@@ -51,7 +51,7 @@ router.post('/searchPharmacies', async (req, res) => {
              return;
             }        
 
-            res.render('pharmacy/searchResult', { title: "List of nearby Pharmacies", results:pharmaciesData })
+            res.render('pharmacy/searchResult', { title: "Medcines are available at:", results:pharmaciesData })
         } catch (e) {
             res.status(400).json({ error: e });
         }
@@ -69,9 +69,63 @@ router.get('/pharmacy/:id', async (req, res) => {
         const pharmaciesData = await pharmacyData.get(id);
         res.render('pharmacy/ShowPharmacy', { title: 'Pharamcy Info', pharmacy: pharmaciesData });     
     } catch (e) { 
-        res.status(404).render('pharmacy/error', { class: "error-not-found", message: "No Pharmacy was found for given zip code" });
+        res.status(404).render('pharmacy/error', { class: "error-not-found", message: "No Pharmacy was found" });
     }
 });
+
+router.post('/pageInfo', async (req, res) => {
+    var about = req.body.aboutUs;
+    var contact = req.body.contactUs;
+
+    if (about){
+        try {
+            res.status(200).render('pageInfo/aboutUs', {title: "About Us"});
+        } catch (e) {
+            res.status(404).json(e);
+        }
+    }
+    if (contact){
+        try {
+            res.status(200).render('pageInfo/contactUs', {title: "Contact Us"});
+        } catch (e) {
+            res.status(404).json(e);
+        }
+    }  
+    
+});
+
+router.get('/placeMedOrder/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        res.status(404).render({ class: "error", message: "Invalid ID" });
+        return;
+    }
+    try {
+        const pharmaciesData = await pharmacyData.get(id);
+        res.render('pharmacy/orderMedicine', { pharmacy: pharmaciesData });     
+    } catch (e) { 
+        res.status(404).render('pharmacy/error', { class: "error-not-found", message: "Not Found" });
+    }
+     
+    
+});
+
+router.get('/submitOrder/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        res.status(404).render({ class: "error", message: "Invalid ID" });
+        return;
+    }
+    try {
+        const pharmaciesData = await pharmacyData.get(id);
+        res.render('pharmacy/submitOrder', { pharmacy: pharmaciesData });     
+    } catch (e) { 
+        res.status(404).render('pharmacy/error', { class: "error-not-found", message: "Not Found" });
+    }
+     
+    
+});
+
 
 
 module.exports = router;
