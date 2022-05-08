@@ -4,28 +4,34 @@
         <h1>{{title}}</h1>
         <dl>
             <dt>Pharmacy Name</dt>
-            <dd> {{pharmacy.name}}</dd>
+            <dd> {{pharmacy.Name}}</dd>
             <dt>Address</dt>
-            <dd>{{#with pharmacy.address}}</dd>
-            <dd>{{street}}, {{city}}, {{state}}, {{zip}}</dd>
+            <dd>{{#with pharmacy.Address}}</dd>
+            <dd>{{Street}}, {{City}}, {{State}}, {{Zip}}</dd>
             {{/with}}
             <dt>Available_Medicine</dt>
             <dd>
                 <ul>
-                    {{#each pharmacy.available_medicine}}
+                    {{#each pharmacy.Available_Medicine}}
                     <li>{{this}}</li>
                     {{/each}}
                 </ul>
             </dd>
             <dt>Reviews</dt>
             <ol>
-                    {{#each pharmacy.reviews}}
-                    <li>{{review}}</li>
+                    {{#each pharmacy.Reviews}}
+                    <li>Review:{{Review_text}}</li>
+                    <ul><li>Rating:&nbsp;{{Rating}}</li></ul>
                     {{/each}}
             </ol>
         </dl>
+
+        <a href="/placeMedOrder/{{pharmacy._id}}">Click here to Place Order</a>
+        <br>
+        <br>
+
+        <a class="new" href="/">Search another Pharmacy</a>
+
     </article>
-<section>
-   <a class="new" href="/">Search another Pharmacy</a>
-</section>
 </main>
+
