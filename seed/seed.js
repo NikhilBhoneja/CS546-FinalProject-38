@@ -28,6 +28,16 @@ const main = async () => {
   let user8 = undefined;
   let user9 = undefined;
   let user10 = undefined;
+  let pharma1 = undefined;
+  let pharma2 = undefined;
+  let pharma3 = undefined;
+  let pharma4 = undefined;
+  let pharma5 = undefined;
+  let pharma6 = undefined;
+  let pharma7 = undefined;
+  let pharma8 = undefined;
+  let pharma9 = undefined;
+  let pharma10 = undefined;
 
   try {
       doctor1 = await doctors.create("Krithika", "Gandlaur" , "232 Hancock Ave" , "Jersey City" , "NJ", "07307","3456789087", "Orthopedics","True");
