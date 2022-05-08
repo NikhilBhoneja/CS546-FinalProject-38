@@ -1,70 +1,131 @@
-const mongoCollections = require('../config/mongoCollections');
-const pharmacy = mongoCollections.pharmacy;
-const { ObjectId } = require('mongodb');
+const express = require('express');
+const router = express.Router();
+const data = require('../data');
+const pharmacyData = data.pharmacies;
 
-async function createPharmacy(Name, Address, Available_Medicine){
-    const pharmacyCollection = await pharmacy();
-    let newPharmacy = { 
-        Name: Name,
-        Address: Address ,
-        Available_Medicine: Available_Medicine,
-        Reviews: []
-      }
-    const insertInfo = await pharmacyCollection.insertOne(newPharmacy);
-    if (!insertInfo.acknowledged || !insertInfo.insertedId)
-      throw 'Could not add Pharmacy';
-  
-    newPharmacy._id=newPharmacy._id.toString();
-    return newPharmacy;
-}
+router.get('/', async (req, res) => {
+    try {
+        res.status(200).render('pharmacy/home', {title: "Pharmacy Finder"});
+    } catch (e) {
+        res.status(404).json(e);
+    }
+});
 
-async function getAll() {
-    const pharmacyCollection = await pharmacy();
-    const pharmacies = await pharmacyCollection.find({}).toArray();
-    return pharmacies;
-}
+router.post('/searchPharmacies', async (req, res) => {
+    var allPharm = req.body.pharm;
+    var nearbyPharm = req.body.nearpharm;
+    var medsPharm = req.body.medspharm;
+    if (allPharm){
+        try {
+            const pharmaciesData  = await pharmacyData.getAll();
+            if (pharmaciesData.length == 0) {
+                res.render('pharmacy/error', { class: 'not-found', message: "We're sorry, but no results were found" });
+                return;
+            }        
 
-async function get(id) {
-  if (id.trim().length === 0) throw 'Id cannot be an empty string or just spaces';
-  if (!id) throw 'Please provide id';
-  id=id.trim();
-  if (!ObjectId.isValid(id)) throw 'invalid object ID';
-  //if (typeof zid !== 'string') throw 'Id must be a string';
-  const pharmacyCollection = await pharmacy();
-  const pharmacyNew = await pharmacyCollection.findOne({  _id: ObjectId(id)});
-  if (pharmacyNew === null) throw 'No pharmacy with that zid';
-  return pharmacyNew;  
-}
+            res.render('pharmacy/searchResult', { title: "Pharmacies Found", results:pharmaciesData })
+        } catch (e) {
+            res.status(400).json({ error: e });
+        }
+    }
+    if(nearbyPharm){
+        const zid = req.body.usersZip;
+        try {
+            const pharmaciesData  = await pharmacyData.getZip(zid);
+            if (pharmaciesData.length == 0) {
+                res.render('pharmacy/error', { class: 'not-found', message: "We're sorry, but no results were found" });
+             return;
+            }        
 
-async function getZip(zid) {
-    if (zid.trim().length === 0) throw 'zip code cannot be an empty string or just spaces';
-    if (!zid) throw 'Please provide zip code';
-    zid=zid.trim();
-    //if (!ObjectId.isValid(zid)) throw 'invalid object ID';
-    if (typeof zid !== 'string') throw 'zip code must be a string';
-    const pharmacyCollection = await pharmacy();
-    const pharmacyNew = await pharmacyCollection.find({"Address.Zip":zid}).toArray();
-    if (pharmacyNew === null) throw 'No pharmacy found in that zip code';
-    return pharmacyNew;  
-  }
+            res.render('pharmacy/searchResult', { title: "List of nearby Pharmacies", results:pharmaciesData })
+        } catch (e) {
+            res.status(400).json({ error: e });
+        }
+    }
+    if(medsPharm){
+        const mid = req.body.meds;
+        try {
+            const pharmaciesData  = await pharmacyData.getMeds(mid);
+            if (pharmaciesData.length == 0) {
+                res.render('pharmacy/error', { class: 'not-found', message: "We're sorry, but no results were found" });
+             return;
+            }        
 
-  async function getMeds(meds) {
-    if (meds.trim().length === 0) throw 'Medicine name cannot be an empty string or just spaces';
-    if (!meds) throw 'Please provide Medicine name';
-    meds=meds.trim();
-    //if (!ObjectId.isValid(zid)) throw 'invalid object ID';
-    if (typeof meds !== 'string') throw 'Medicine name must be a string';
-    const pharmacyCollection = await pharmacy();
-    const pharmacyNew = await pharmacyCollection.find({"Available_Medicine": {$regex: meds, $options: 'i'}}).toArray();
-    //const pharmacyNew = await pharmacyCollection.find({"available_medicine": /^meds$/i}).toArray();
-    if (pharmacyNew === null) throw 'Medcine is currently unavailble';
-    return pharmacyNew;  
-  }
+            res.render('pharmacy/searchResult', { title: "Medcines are available at:", results:pharmaciesData })
+        } catch (e) {
+            res.status(400).json({ error: e });
+        }
+    }
+});
 
-module.exports={
-    createPharmacy,
-    getAll,
-    get,
-    getZip,
-    getMeds
-  }
+
+router.get('/pharmacy/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        res.status(404).render({ class: "error", message: "Invalid ID" });
+        return;
+    }
+    try {
+        const pharmaciesData = await pharmacyData.get(id);
+        res.render('pharmacy/ShowPharmacy', { title: 'Pharamcy Info', pharmacy: pharmaciesData });     
+    } catch (e) { 
+        res.status(404).render('pharmacy/error', { class: "error-not-found", message: "No Pharmacy was found" });
+    }
+});
+
+router.post('/pageInfo', async (req, res) => {
+    var about = req.body.aboutUs;
+    var contact = req.body.contactUs;
+
+    if (about){
+        try {
+            res.status(200).render('pageInfo/aboutUs', {title: "About Us"});
+        } catch (e) {
+            res.status(404).json(e);
+        }
+    }
+    if (contact){
+        try {
+            res.status(200).render('pageInfo/contactUs', {title: "Contact Us"});
+        } catch (e) {
+            res.status(404).json(e);
+        }
+    }  
+    
+});
+
+router.get('/placeMedOrder/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        res.status(404).render({ class: "error", message: "Invalid ID" });
+        return;
+    }
+    try {
+        const pharmaciesData = await pharmacyData.get(id);
+        res.render('pharmacy/orderMedicine', { pharmacy: pharmaciesData });     
+    } catch (e) { 
+        res.status(404).render('pharmacy/error', { class: "error-not-found", message: "Not Found" });
+    }
+     
+    
+});
+
+router.get('/submitOrder/:id', async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        res.status(404).render({ class: "error", message: "Invalid ID" });
+        return;
+    }
+    try {
+        const pharmaciesData = await pharmacyData.get(id);
+        res.render('pharmacy/submitOrder', { pharmacy: pharmaciesData });     
+    } catch (e) { 
+        res.status(404).render('pharmacy/error', { class: "error-not-found", message: "Not Found" });
+    }
+     
+    
+});
+
+
+
+module.exports = router;
