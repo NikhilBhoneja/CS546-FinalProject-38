@@ -2,15 +2,8 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const pharmacyData = data.pharmacies;
+const xss = require('xss');
 
-
-// router.get('/', async (req, res) => {
-//     try {
-//         res.status(200).render('pharmacy/home', {title: "Pharmacy Finder"});
-//     } catch (e) {
-//         res.status(404).json(e);
-//     }
-// });
 router.get('/', async (req, res)=>{
     try{
         res.status(200).render('pharmacy/home', {title: "Dashboard"});
