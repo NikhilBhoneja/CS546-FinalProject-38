@@ -12,7 +12,7 @@
   </header>   --}}
  <header>
     <div class="header">
-    <a href="doctors/" class="logo">Sanjeevni</a>
+    <p class="logo">Sanjeevni</p>
     <div class="header-right">
     <a href="doctors/userProfile/{{userInfo._id}}">{{userInfo.First_Name}}</a>
     </div>
@@ -58,7 +58,7 @@
 
   <div  class = "childDiv">
   
-    <form action="doctors/searchDoctors" method="POST">
+    <form action="../doctors/searchDoctors" method="POST">
     
     <select id="example" class="form-control mr-sm-2" name = "searchTerm" style="width: 300px">
     <option value="Stress and Mental Health">Stress and Mental Health</option>
@@ -77,7 +77,7 @@
   </div>
 
   <div class = "childDiv" >
-  <form action="doctors/searchDoctors" method="POST" class="form-inline md-form mr-auto mb-4">
+  <form action="../doctors/searchDoctors" method="POST" class="form-inline md-form mr-auto mb-4">
   <input class="form-control mr-sm-2" name = "searchTerm" type="text" placeholder="Search Doctor" aria-label="Search" style="width: 300px">
   <button class="btn btn-outline-warning btn-rounded btn-sm my-0" type="submit">Search By Name</button>
   </form>
@@ -86,7 +86,7 @@
   <div class="childDiv">
   <ul class="disable">
   <li>
-  <button onclick="window.location='pharmacy/'" class="btn btn-light-outline" style="width: 300px">Order Medicine<i class="fas fa-history"></i></button>
+  <button onclick="window.location='../pharmacy/'" class="btn btn-light-outline" style="width: 300px">Order Medicine<i class="fas fa-history"></i></button>
   </li>
   </ul>
   </div>
@@ -95,7 +95,7 @@
 
 
     <br><br><br><br><br>
-    <br><br><br><br><br>
+  <br><br><br><br><br>
     <footer class="footer-design">
       &copySanjeevni.com
     </footer>

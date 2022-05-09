@@ -52,10 +52,10 @@ module.exports = {
         if(searchTerm.trim(' ').length ==0){
           throw 'Input cannot be just whitespaces'
         }
-        let regex1 = /[^0-9a-z]/gi;
-        if(searchTerm.match(regex1)){
-          throw 'Input cannot be special characters'
-        }
+        // let regex1 = /[^0-9a-z]/gi;
+        // if(searchTerm.match(regex1)){
+        //   throw 'Input cannot be special characters'
+        // }
         let regex2 = /\d/;
         if(searchTerm.match(regex2)){
           throw 'Search Term cannot contain Numbers'

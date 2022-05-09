@@ -1,13 +1,13 @@
-const doctors = require("./data/doctors");
-const users = require("./data/main");
-const pharmacies = require("./data/pharmacies");
-const reviews = require("./data/reviews");
-const connection = require("./config/mongoConnection");
-const mongoCollections = require('./config/mongoCollections');
+const doctors = require("../data/doctors");
+const users = require("../data/main");
+const pharmacies = require("../data/pharmacies");
+const reviews = require("../data/reviews");
+const connection = require("../config/mongoConnection");
+const mongoCollections = require('../config/mongoCollections');
 const doctor = mongoCollections.doctors;
 let { ObjectId } = require("mongodb");
 const pharmaData = mongoCollections.pharmacy;
-const { connectToDb } = require("./config/mongoConnection");
+const { connectToDb } = require("../config/mongoConnection");
 
 const main = async () => {
   let doctor1 = undefined;
@@ -133,14 +133,14 @@ const main = async () => {
   }
   
   try{
-    user4 = await users.createUsers("Neha","Phuloria","10/16/1998","24 Buckingham St", "Union City", "NJ", "06893","5528995673", "testuser@stevens.edu","TESTUSER","NOTSAFE");
+    user4 = await users.createUsers("Neha","Phuloria","10/16/1998","24 Buckingham St", "Union City", "NJ", "06893","2314567890", "nph@stevens.edu","NehaP","PASS345");
     console.log("User 4 inserted succesfully");
   } catch (error) {
     console.log(error);
   }
   
   try{
-    user5 = await users.createUsers("Shanky","Tyagi","01/12/1997","245 Sherman St", "Jersey City", "NJ", "07533", "2314567890","gjjb@stevens.edu","ShankyT","PASS345");
+    user5 = await users.createUsers("Shanky","Tyagi","01/12/1997","245 Sherman St", "Jersey City", "NJ", "07313", "2314567890","gjjb@stevens.edu","ShankyT","PASS345");
     console.log("User 5 inserted succesfully");
   } catch (error) {
     console.log(error);
@@ -253,7 +253,7 @@ const main = async () => {
   
   let pharmacyCollection = await pharmaData();
   let stuffs = await pharmacyCollection.find({}).toArray();
-  console.log(stuffs[10]._id.toString());
+
   try{
     await reviews.createReview_p(stuffs[0]._id.toString(),"Fast",4);
     console.log(stuffs[0].Reviews);

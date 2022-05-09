@@ -82,7 +82,7 @@ router.get('/pharmacy/:id', async (req, res) => {
     }
 });
 
-router.post('/pageInfo', async (req, res) => {
+router.post('/footerInfo', async (req, res) => {
     var about = req.body.aboutUs;
     var contact = req.body.contactUs;
 

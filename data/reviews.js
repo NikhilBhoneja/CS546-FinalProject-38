@@ -35,10 +35,10 @@ async function createReview(doctorId, review_text, rating) {
     if(!review_text) { throw 'No Review text was provided' }
     if(review_text.trim(' ').length===0) { throw 'Provided Review Text cannot contain only whitespaces' }
     if(typeof review_text !='string') { throw 'Provided Review Text must be a string' }
-
+    rating=parseInt(rating)
     if(!rating) { throw 'No Rating was provided' }
     if(rating < 1 || rating > 5 ){ throw 'Provided Rating should be in range from 1 to 5' }
-    if(typeof rating!='number') { throw 'Provided Rating must be a number' }
+    //if(typeof rating!='number') { throw 'Provided Rating must be a number' }
     
     let d_id = ObjectId(doctorId);
     const new_review = {

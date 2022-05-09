@@ -121,4 +121,19 @@ router.post('/r',async(req,res)=>{
         res.status(400).render('review',{error:e});
     }
 });
+
+router.post('/bookApp/:id',async(req,res)=>{
+    const id = req.params.id;
+    if (!id) {
+        res.status(404).render({ class: "error", message: "Invalid ID" });
+        return;
+    }
+    try {
+        const doctorInfo = await doctorData.getDoctorById(id);
+        res.render('submitApp', { doc: doctorInfo });     
+    } catch (e) { 
+        res.status(400).json({ error: e });
+    }
+   
+});
 module.exports = router;

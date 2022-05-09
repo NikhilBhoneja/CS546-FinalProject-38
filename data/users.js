@@ -63,47 +63,46 @@ async function checkAppointment(id,doctorId){
     return check;
 }
 
-async function addAppointment(id, doctorId, datetime){
-    if(!id) throw "No id provided";
-    if(typeof id !== "string") throw "Provided id is not a string";
-    
-    if(!doctorId) throw "No doctor id provided";
-    if(typeof id !== "string") throw "Provided doctor id is not a string";
-    
-    if(!datetime) throw "No date & time provided";
-    if(typeof datetime !== "string") throw "Provided date time is in invalid format";
-    
-    var date = datetime.slice(0,10);
-    var time = datetime.slice(11,16);
-    var byear = parseInt(datetime.slice(0,4));
-    var bmonth = parseInt(datetime.slice(5,7));
-    var bdate = parseInt(datetime.slice(8,10));
-    var bhour = parseInt(datetime.slice(11,13));
-    var bmin = parseInt(datetime.slice(14,16));
-    
-    let currentDate = new Date();
-    let cday = currentDate.getDate();
-    let cmonth = currentDate.getMonth() + 1;
-    let cyear = currentDate.getFullYear();
-    let chour = currentDate.getHours();
-    let cmin = currentDate.getMinutes();
+async function addAppointment(id, datetime){
+  if(!id) throw "No id provided";
+  if(typeof id !== "string") throw "Provided id is not a string";
   
-    if(cyear > byear) throw "Appointment date cannot be before current date";
-    else if(cyear == byear && cmonth > bmonth) throw "Appointment date cannot be before current date";
-    else if(cyear == byear && cmonth == bmonth && cday > bdate)  throw "Appointment date cannot be before current date";
-    else if(cyear == byear && cmonth == bmonth && cday == bdate)  throw "Appointments need to be atleast 1 day in advanced";
-    
-    if(bhour < 9 || bhour > 17) throw "Appointments only available between 09:00AM and 05:00PM";
-    
-    if(cyear == byear && cmonth == bmonth && (cday+1) == bdate && (chour > bhour || (chour == bhour && cmin > bmin)) throw "Appointments need to be atleast 1 day in advanced";
-       
-    let create_s = await get.updateOne({ _id: id }, { $set: { Patient_history: Patient_history.push([doctorId,datetime]);} });
-    let create_p = await get.updateOne({ _id: id }, { $set: { Appointments_details: [doctorId,datetime] }});   
-    
+  
+  if(!datetime) throw "No date & time provided";
+  if(typeof datetime !== "string") throw "Provided date time is in invalid format";
+  
+  var date = datetime.slice(0,10);
+  var time = datetime.slice(11,16);
+  var byear = parseInt(datetime.slice(0,4));
+  var bmonth = parseInt(datetime.slice(5,7));
+  var bdate = parseInt(datetime.slice(8,10));
+  var bhour = parseInt(datetime.slice(11,13));
+  var bmin = parseInt(datetime.slice(14,16));
+  
+  let currentDate = new Date();
+  let cday = currentDate.getDate();
+  let cmonth = currentDate.getMonth() + 1;
+  let cyear = currentDate.getFullYear();
+  let chour = currentDate.getHours();
+  let cmin = currentDate.getMinutes();
+
+  if(cyear > byear) throw "Appointment date cannot be before current date";
+  else if(cyear == byear && cmonth > bmonth) throw "Appointment date cannot be before current date";
+  else if(cyear == byear && cmonth == bmonth && cday > bdate)  throw "Appointment date cannot be before current date";
+  else if(cyear == byear && cmonth == bmonth && cday == bdate)  throw "Appointments need to be atleast 1 day in advanced";
+  
+  if(bhour < 9 || bhour > 17) throw "Appointments only available between 09:00AM and 05:00PM";
+  
+  if(cyear == byear && cmonth == bmonth && (cday+1) == bdate && (chour > bhour || (chour == bhour && cmin > bmin))) throw "Appointments need to be atleast 1 day in advanced";
+     
+  // let create_s = await get.updateOne({ _id: id }, { $set: { Patient_history: Patient_history.push([doctorId,datetime])} });
+  // let create_p = await get.updateOne({ _id: id }, { $set: { Appointments_details: [doctorId,datetime] }});   
+  
 }
 
-module.exports = 
+module.exports = {
     getAll,
     get,
-    checkAppointment
+    checkAppointment,
+    addAppointment
 }

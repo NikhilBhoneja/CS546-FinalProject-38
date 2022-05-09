@@ -1,27 +1,3 @@
-{{!-- <main>
-    <article>
-        <h1>{{title}}</h1>
-        <dl>
-            <dt>Doctor Name</dt>
-            <dd> {{Doctor.First_Name}},{{Doctor.Last_Name}}</dd>
-            <dt>Address</dt>
-            <dd>{{#with Doctor.Address}}</dd>
-            <dd>{{street}}, {{city}}, {{state}}, {{zip}}</dd>
-            {{/with}}
-            <dt>Speciality</dt>
-            <dd>{{Doctor.Speciality}}</dd>
-            <dt>Reviews</dt>
-            <ol>
-                    {{#each Doctor.Reviews}}
-                    <li>{{Reviews}}</li>
-                    {{/each}}
-            </ol>
-        </dl>
-    </article>
-<section>
-   <a class="new" href="/">Search another doctor</a>
-</section>
-</main> --}}
 <div class = "article-container">
     <div class = "article"> 
         <img src = "../../public/images/img8.jpg" alt="Image Not Found" style="width: 10px height: 10px ;">
@@ -37,27 +13,13 @@
     </div>
 </div>
 <div>
-    <form id="wefwf" method="post" action = "/doctors/doctor"> <b>Book an Appointment
+    <form id="wefwf" method="post" action = "/doctors/bookApp/{{Doctor._id}}"> <b>Book an Appointment
          <input type="datetime-local" id="appointment_details" name="input_details">
          <input type="submit">
     </form>
 </div>
 <div>
     <form id="formForComment" method="post" action="/reviews/{{Doctor._id}}">Review On This Doctor
-    {{!-- <br>
-    <input type="hidden" name="doctorId" id="doctorid" value="{{a._id}}">
-    <br>
-    <label for="subject">Enter Review
-    <br><br>
-    <textarea id="reviewText" placeholder="Enter Review" name="reviewText"></textarea>
-    </label>
-    <br><br>
-    <label for="description" > Enter Rating
-        <br><br>
-    <input type="number" placeholder="Enter Rating" id="rating" name="rating">
-    
-    </label>
-    <br><br> --}}
     <button type="submit" value="Submit" id="submit3">Give review</button>
     </form>
     <br><br>
@@ -67,31 +29,18 @@
         {{/if}}
      </div>
     <script src="/public/js/ReviewclientSide.js"></script>
-    <a href="doctors/">Back to Feed</a>
+    
 </div>
-{{!-- <button onclick="window.location='../r'" class="btn btn-light-outline" style="width: 300px">Give review<i class="fas fa-history"></i></button> --}}
-{{!-- <button onclick="window.location=/doctors/doctor/reviews">Click here to review</button> --}}
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"crossorigin="anonymous"></script>
 <div> 
-    <h2>Overall Rating: {{Doctor.overallRating}}</h2> <br> 
+    <p>Overall Rating: {{Doctor.overallRating}}</p> <br> 
   
 </div>
-{{!-- <div>
-    <ol>
-        {{#each Doctor.Reviews}}
-        <li>{{Reviews}}</li>
-        {{/each}}
-    </ol>
-    {{#each context.Reviews}}
-        {{#each this}}
-            {{@key}} - {{this}}
-        {{/each}}
-    {{/each}}
-</div> --}}
+
 
 <div>
-    <h2>Reviews:</h2>
+    <p>Reviews:</p>
     {{#each b}}
     <ul class='commentList'>
         <li class='comment'><h3>Review : {{Doctor.Review_text}}</h3>
@@ -99,6 +48,5 @@
     </ul>
     {{/each}}
 </div></b>
-
-
-{{!-- <a href="/logout">Logout</a> --}}
+<a href="../">Back to Feed</a>
+<br><br><br>

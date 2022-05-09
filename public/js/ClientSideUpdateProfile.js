@@ -2,13 +2,13 @@
 
     const myForm = document.getElementById("formForEditUser");
     let addressInput = document.getElementById("address");
-    let phnInput = document.getElementById("phonenumber");
+   // let phnInput = document.getElementById("phonenumber");
     let streetInput = document.getElementById("street");
     let cityInput = document.getElementById("city");
     let stateInput = document.getElementById("state");
     let zipInput = document.getElementById("zipcode");
     let emailInput = document.getElementById("email");
-    let phnInput = document.getElementById("phonenumber");
+   // let phnInput = document.getElementById("phonenumber");
     let errorDiv = document.getElementById('errorcheck');
     if (myForm) {
     myForm.addEventListener("submit", (event) => {

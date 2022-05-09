@@ -1,22 +1,17 @@
 <link rel='stylesheet' href='public/css/main_style.css'/>
     <button id='profileButton' hidden>Profile</button>
     <div id="profile">
-        <label for="edit">Edit:</label><br>
-        <button id="edit" name="edit">Edit Profile</button>
-        <h1>{{userInfo.username}}</h1>
-        <br>
-        <br>
-        <h2> {{userInfo.First_Name}}  {{userInfo.Last_Name}}</h2>
-        <br>
-         <br>
-        <dt>Address</dt>
+        <h2>Username: &nbsp; {{userInfo.username}}</h1>
+      
+        <h2> Full Name: &nbsp; {{userInfo.First_Name}}  {{userInfo.Last_Name}}</h2>
+        
+        <h2>Address: </h2>
             <dd>{{#with userInfo.Address}}
             <dd>{{Street}}, {{City}}, {{State}}, {{Zip}}</dd>
             {{!-- {{this}} --}}
             {{/with}}
             </dd>
-        <br>
-        <br>
+
         <h2>Appointments</h2>
         <div class='table'>
         <ul class='doctorDisplay'>
@@ -57,5 +52,6 @@
         <br>
         <br>
     </div>
-    <a href="/searchDoctors">Back to Feed</a>
+    <a href="../">Back to Feed</a><br><br>
+    <a href="/logout">Log Out</a>
 <script src="/public/js/ClientSideUpdateProfile.js"></script>
