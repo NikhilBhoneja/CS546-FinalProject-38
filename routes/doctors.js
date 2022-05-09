@@ -16,23 +16,11 @@ router.get('/', async (req, res)=>{
         res.status(500).send();
     }
 });
-// router.get('/userProfile/:id', async (req, res) => {
-//     const id = req.params.id;
-//     if (!id) {
-//         res.status(404).render({ class: "error", message: "Invalid ID" });
-//         return;
-//     }
-//     try {
-//         const usersData = await userData.getDoctorById(xss(id));
-//         res.render('showDoctor', { title: 'Doctors Info', Doctor: doctorsData });     
-//     } catch (e) { 
-//         res.status(404).render('error', { class: "error-not-found", message: "No Doctor was found for given zip code" });
-//     }
-// });
+
 router.get('/userProfile/:id', async (req, res)=>{
     try{
         try {
-            const user = await usersData.get(req.params.id);
+            const user = await usersData.get(xss(req.params.id));
             console.log(user)
             res.status(200).render('myPage', { title: 'User Details', userInfo: user });     
         } catch (e) { 
@@ -129,7 +117,7 @@ router.post('/bookApp/:id',async(req,res)=>{
         return;
     }
     try {
-        const doctorInfo = await doctorData.getDoctorById(id);
+        const doctorInfo = await doctorData.getDoctorById(xss(id));
         res.render('submitApp', { doc: doctorInfo });     
     } catch (e) { 
         res.status(400).json({ error: e });
