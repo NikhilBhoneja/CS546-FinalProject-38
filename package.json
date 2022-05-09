@@ -1,0 +1,35 @@
+{
+  "name": "final_project",
+  "version": "1.0.0",
+  "description": "final project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "seed":"node ./tasks/seed.js"
+  },
+  "author": "Shanky,Nikhil,Neha,Kartik",
+  "license": "ISC",
+  "dependencies": {
+    "ajax": "^0.0.4",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.1",
+    "express-handlebars": "^6.0.5",
+    "express-session": "^1.17.2",
+    "handlebars": "^4.7.7",
+    "homebrew": "^0.1.0",
+    "mongodb": "^4.5.0",
+    "xss": "^1.0.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikhilBhoneja/CS546-FinalProject-38.git"
+  },
+  "bugs": {
+    "url": "https://github.com/NikhilBhoneja/CS546-FinalProject-38/issues"
+  },
+  "homepage": "https://github.com/NikhilBhoneja/CS546-FinalProject-38#readme"
+}
