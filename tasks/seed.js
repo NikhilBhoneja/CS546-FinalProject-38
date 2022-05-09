@@ -133,14 +133,14 @@ const main = async () => {
   }
   
   try{
-    user4 = await users.createUsers("Neha","Phuloria","10/16/1998","24 Buckingham St", "Union City", "NJ", "06893","2314567890", "nph@stevens.edu","NehaP","PASS345");
+    user4 = await users.createUsers("Neha","Phuloria","10/16/1998","24 Buckingham St", "Union City", "NJ", "06893","5528995673", "testuser@stevens.edu","TESTUSER","NOTSAFE");
     console.log("User 4 inserted succesfully");
   } catch (error) {
     console.log(error);
   }
   
   try{
-    user5 = await users.createUsers("Shanky","Tyagi","01/12/1997","245 Sherman St", "Jersey City", "NJ", "07313", "2314567890","gjjb@stevens.edu","ShankyT","PASS345");
+    user5 = await users.createUsers("Shanky","Tyagi","01/12/1997","245 Sherman St", "Jersey City", "NJ", "07533", "2314567890","gjjb@stevens.edu","ShankyT","PASS345");
     console.log("User 5 inserted succesfully");
   } catch (error) {
     console.log(error);
